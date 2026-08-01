@@ -20,6 +20,7 @@ spec:
       containers:
         - name: backend
           image: devopsiam/java-banking-backend:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
           env:
