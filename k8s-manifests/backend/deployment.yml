@@ -13,7 +13,10 @@ spec:
     metadata:
       labels:
         app: backend
+    
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: worker-node-1
       containers:
         - name: backend
           image: devopsiam/java-banking-backend:latest
