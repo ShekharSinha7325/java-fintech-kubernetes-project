@@ -46,7 +46,7 @@ spec:
               value: "86400000"
 
             - name: CROS_ALLOWED_ORIGIN
-              value: "*"
+              value: "http://65.2.203.21:30081"
 
           readinessProbe:
             httpGet:
