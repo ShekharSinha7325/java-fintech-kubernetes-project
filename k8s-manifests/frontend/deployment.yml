@@ -20,6 +20,7 @@ spec:
       containers:
         - name: frontend
           image: devopsiam/java-banking-frontend:1.0
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
          
