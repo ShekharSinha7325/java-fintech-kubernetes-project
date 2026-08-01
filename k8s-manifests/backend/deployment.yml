@@ -19,7 +19,7 @@ spec:
         kubernetes.io/hostname: worker-node-1
       containers:
         - name: backend
-          image: devopsiam/java-banking-backend:latest
+          image: devopsiam/java-banking-backend:1.0
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
