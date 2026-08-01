@@ -6,8 +6,8 @@ services:
       dockerfile: docker/frontend/Dockerfile
       args:
         VITE_API_URL: ${VITE_API_URL:-http://localhost:8080/api}
-    image: ${DOCKER_REGISTRY:-ledgerline}/frontend:${TAG:-latest}
-    container_name: ledgerline-frontend
+    image: ${DOCKER_REGISTRY:-devopsiam}/java-banking-frontend:${TAG:-latest}
+    container_name: java-banking-frontend
     restart: unless-stopped
     depends_on:
       - backend

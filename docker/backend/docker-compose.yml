@@ -4,8 +4,8 @@ services:
     build:
       context: ../../backend
       dockerfile: ../docker/backend/Dockerfile
-    image: ${DOCKER_REGISTRY:-ledgerline}/backend:${TAG:-latest}
-    container_name: ledgerline-backend
+    image: ${DOCKER_REGISTRY:-devopsiam}/java-banking-backend:${TAG:-latest}
+    container_name: java-banking-backend
     restart: unless-stopped
     depends_on:
       postgres:
