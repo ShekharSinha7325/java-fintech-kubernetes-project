@@ -419,7 +419,7 @@ export default function DashboardPage() {
                     <div className="qa-icon blue">⇄</div>
                     <div><div className="qa-title">Send money</div><div className="qa-sub">To anyone, instantly</div></div>
                   </div>
-                  <div className="card qa-card" onClick={openAddMoney}>
+                  <div className="card qa-card" onClick={() => openAddMoney()}>
                     <div className="qa-icon mint">↓</div>
                     <div><div className="qa-title">Add money</div><div className="qa-sub">From a linked bank</div></div>
                   </div>
