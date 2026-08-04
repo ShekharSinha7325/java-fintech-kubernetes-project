@@ -96,7 +96,7 @@ alertmanager:
       - name: 'null'
       - name: 'discord-notifications'
         discord_configs:
-          - webhook_url: 'https://discord.com/api/webhooks/1533798400737153156/Z4wM0ym1VPyDZau7QbxoGHYzaz0a-7dnixVLkyoSD_F3rbqWS3sDl5hdMj82LlMUHkKR'
+          - webhook_url: 'https://discord.com/api/webhooks/1533799590921502883/lnbBrgBr1y_QiLWcm1IeqSFTBkta9qn-TzW3_Fp_2XVLa8TWQTt4VrMo6VtRFVC5QVF-'
 
 additionalPrometheusRulesMap:
   custom-crashloop-rule:
