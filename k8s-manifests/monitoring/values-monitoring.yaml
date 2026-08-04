@@ -30,7 +30,94 @@ grafana:
   service:
     type: NodePort
     nodePort: 30090
+prometheus:
+  prometheusSpec:
+    retention: 15d
+    nodeSelector:
+      kubernetes.io/hostname: monitoring-node
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: local-path
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 20Gi
+    resources:
+      requests:
+        cpu: 250m
+        memory: 512Mi
+      limits:
+        cpu: 500m
+        memory: 1Gi
 
+grafana:
+  nodeSelector:
+    kubernetes.io/hostname: monitoring-node
+  persistence:
+    enabled: true
+    storageClassName: local-path
+    size: 5Gi
+  adminPassword: "StrongPassword123!"
+  service:
+    type: NodePort
+    nodePort: 30090
+
+alertmanager:
+  alertmanagerSpec:
+    nodeSelector:
+      kubernetes.io/hostname: monitoring-node
+    storage:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: local-path
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 2Gi
+
+  service:
+    type: NodePort
+    nodePort: 30093
+  config:
+    global:
+      resolve_timeout: 5m    
+    route:
+      receiver: 'discord-notifications'     
+      group_by: ['alertname']  
+      group_wait: 30s
+      group_interval: 5m
+      repeat_interval: 4h
+      routes:
+        - receiver: 'null'
+          matchers:
+            - alertname =~ "Watchdog|Kube.*Unreachable|Alertmanager.*Failed.*|etcd.*"
+    receiver:
+      - name: 'null'
+      - name: 'discord-notifications'
+        discord_configs:
+          - webhook_url: 'https://discord.com/api/webhooks/1533798400737153156/Z4wM0ym1VPyDZau7QbxoGHYzaz0a-7dnixVLkyoSD_F3rbqWS3sDl5hdMj82LlMUHkKR'
+
+additionalPrometheusRulesMap:
+  custom-crashloop-rule:
+    groups:
+      - name: custom-kubernetes-apps
+        rules:
+          - alert: kubePodCrashLoopingFast
+            expr: max_over_time(kube_pod_container_status_waiting_reason{reason="CrashLoopBackOff"}[5m]) >= 1
+            for: 30s
+            labels:
+              severity: warning
+            annotations:
+              description: "Pod {{ $labels.namespace }}/{{ $labels.pod }} is in CrashLoopBackOff"
+
+          - alert: kubePodOOMKilled
+            expr: kube_pod_container_status_last_terminated_reason{reason="OOMKilled"} == 1
+            for: 10s
+            labels:
+              severity: critical
+            annotations:
+              description: "Pod {{ $labels.namespace }}/{{ $labels.pod }} container {{ $labels.container }} was OOMKilled"
 alertmanager:
   alertmanagerSpec:
     nodeSelector:
