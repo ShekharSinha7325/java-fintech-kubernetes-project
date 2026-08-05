@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+Metadata:
+  name: banking-ingress
+  namespace: banking
+  amotations:
+    nginx.ingess.kubernetes.io/rewrite-target: /
+
+spec:
+  rules:
+    - host: bank.sklabs.in.net
+      http:
+        paths:
+          - pathType: Prefix
+            backend:
+              service:
+                name: frontend-svc
+                port:
+                  number: 80
+    - host: api.bank.sklabs.in.net
+      http:
+        paths:
+          - pathType: Prefix
+            backend:
+              service:
+                name: backend-svc
+                port:
+                  number: 8080
+
