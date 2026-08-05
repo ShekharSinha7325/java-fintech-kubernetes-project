@@ -3,8 +3,8 @@ kind: Ingress
 metadata:
   name: banking-ingress
   namespace: banking
-  amotations:
-    nginx.ingess.kubernetes.io/rewrite-target: /
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
 
 spec:
   rules:
