@@ -11,7 +11,7 @@ RUN npm ci
 COPY frontend/ .
 
 
-ARG VITE_API_URL=http://65.2.203.21:30080/api
+ARG VITE_API_URL=http://api.bank.sklabs.in.net/api
 
 RUN npm run build
 
